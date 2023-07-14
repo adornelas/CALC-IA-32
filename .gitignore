@@ -400,3 +400,6 @@ FodyWeavers.xsd
 
 # Arquivo objeto
 *.o
+
+# Arquivo teste executável
+teste
