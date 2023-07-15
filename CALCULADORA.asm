@@ -1,84 +1,108 @@
 section .data
-bem_vindo       db  "Bem-vindo. Digite seu nome:"
-bem_vindo_len   EQU $ - bem_vindo
-; bem_vindo_len   db 16
-
-hola            db  "Hola, "
-hola_len        EQU $ - hola
-
-programa        db  ", bem-vindo ao programa de CALC IA-32", 0
-programa_len    EQU $ - programa
-
+bem_vindo       db 'Bem-vindo. Digite seu nome: '
+bem_vindo_len   EQU $-bem_vindo
+hola            db  'Hola, '
+hola_len        EQU $-hola
+bem_vindo2        db  ', bem-vindo ao programa de CALC IA-32',00Dh, 0Ah
+bem_vindo2_len    EQU $-bem_vindo2
+bit_question        db  'Vai trabalhar com 16 ou 32 bits (digite 0 para 16, e 1 para 32):'
+bit_question_len    EQU $-bit_question
 nwln            db  0Dh, 0Ah
 NWLNSIZE        EQU $-nwln
 
 section .bss
-user_name   resb    16
+user_name       resb 16
+user_name_len   resd 1
 
 section .text
 global _start
 _start:
 
-    ; push WORD [bem_vindo]
-    ; push WORD [bem_vindo_len]
-
-    call msg
+    call print_welcome
+    call get_name
+    call print_hola
+    call print_name
+    call print_welcome2
+    call print_bitquestion
 
     ; Encerra programa
     mov eax, 1
     mov ebx, 0
     int 80h
 
-; mensagem:
-    ; Imprime bem vindo
-    ; enter 0,0
+print_msg:
+    ; Imprime uma string que foi passada pela pilha por parâmetro, com seu tamanho empilhado em seguida
+    enter 0,0
     
-    ; mov eax, 4
-    ; mov ebx, 1
-    ; mov ecx, [EBP+10]
-    ; mov edx, [EBP+8]
-    ; mov ecx, bem_vindo
-    ; mov edx, bem_vindo_len
-    ; int 80h
-
-    ; leave
-    ; ret 
-
-msg:
-    ; Imprime bem vindo
     mov eax, 4
     mov ebx, 1
-    mov ecx, bem_vindo
-    mov edx, bem_vindo_len
+    mov ecx, [EBP+12]
+    mov edx, [EBP+8]
     int 80h
 
-    ; Pega nome
+    leave
+    ret
+
+print_welcome:
+    enter 0,0
+    push DWORD bem_vindo
+    push DWORD bem_vindo_len
+
+    call print_msg
+
+    leave
+    ret
+
+get_name:
+    enter 0,0
+    
     mov eax, 3
     mov ebx, 0
     mov ecx, user_name
     mov edx, 16
     int 80h
+    dec eax
+    mov [user_name_len], eax
 
-    ; Imprime Hola
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, hola
-    mov edx, hola_len
-    int 80h
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, user_name  ;TODO: retirar quebra de linha após imprimir nome
-    mov edx, 16
-    int 80h
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, programa
-    mov edx, programa_len
-    int 80h
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, nwln
-    mov edx, NWLNSIZE
-    int 80h
-    
+    leave
+    ret
+
+print_hola:
+    enter 0,0
+    push DWORD hola
+    push DWORD hola_len
+
+    call print_msg
+
+    leave
+    ret
+
+print_name:
+    enter 0,0
+    push DWORD user_name
+    push DWORD user_name_len
+
+    call print_msg
+
+    leave
+    ret
+
+print_welcome2:
+    enter 0,0
+    push DWORD bem_vindo2
+    push DWORD bem_vindo2_len
+
+    call print_msg
+
+    leave
+    ret
+
+print_bitquestion:
+    enter 0,0
+    push DWORD bit_question
+    push DWORD bit_question_len
+
+    call print_msg
+
+    leave
     ret
