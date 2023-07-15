@@ -6,6 +6,9 @@ section .data
 bem_vindo db "Bem vindo.", 0dh, 0ah
 bem_vindo_len equ $ - bem_vindo
 
+numero db 'O numero é ',
+numero_size equ $ - numero
+
 section .bss
     precisao resb 4
 
@@ -27,20 +30,14 @@ _start:
     call int_to_string
     add esp,4 
 
-    mov ecx, eax 
+    push eax
     mov eax, 4
     mov ebx, 1
-    mov edx, 30
+    mov ecx, numero
+    mov edx, numero_size
     int 80h
 
-    call read_int
-    push eax
-
-    push eax
-    call int_to_string
-    add esp,4 
-
-    mov ecx, eax 
+    pop ecx
     mov eax, 4
     mov ebx, 1
     mov edx, 30
