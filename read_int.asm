@@ -1,7 +1,7 @@
 global read_int
 
 section .data
-    msg db 'DIGITE A PRECISÃO '
+    msg db 'Digite um numero '
     SIZE_MSG EQU $-msg
 
     erro db 'Entrada inválida. Digite o número novamente ', 0dh, 0ah
