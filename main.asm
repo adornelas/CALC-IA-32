@@ -1,4 +1,5 @@
 extern display_msg ; declara que a função é externa 
+extern debug_msg
 
 global _start
 
@@ -9,8 +10,10 @@ _start:
     ; ignorado
     call display_msg ; chama funcao de outro modulo
 
-    push eax ; coloco EAX na pilha pra nao sobreescrever retorno
 
+    call debug_msg
+
+    push eax ; coloco EAX na pilha pra nao sobreescrever retorno
     mov eax, 4
     mov ebx, 1
     pop ecx ; pego o valor de EAX que foi retornado na função display_msg
