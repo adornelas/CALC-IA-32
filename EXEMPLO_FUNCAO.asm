@@ -1,5 +1,6 @@
 extern read_int
 extern int_to_string
+extern SUBTRACAO
 
 section .data
 
@@ -23,26 +24,15 @@ _start:
     mov edx, bem_vindo_len
     int 80h
 
-    call read_int
-    push eax
-
-    push eax
-    call int_to_string
-    add esp,4 
+    call SUBTRACAO
 
     push eax
     mov eax, 4
     mov ebx, 1
-    mov ecx, numero
-    mov edx, numero_size
-    int 80h
-
     pop ecx
-    mov eax, 4
-    mov ebx, 1
-    mov edx, 30
+    mov edx, 32
     int 80h
-    
+
     ; Encerra programa
     mov eax, 1
     mov ebx, 0

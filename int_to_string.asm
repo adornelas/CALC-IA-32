@@ -9,7 +9,7 @@ section .bss
 
 section .text
     int_to_string:
-        mov eax, [esp + 4]
+        ; mov eax, [esp + 4] TODO: corrigir pra usar enter e leave
         push 0
         mov esi, buffer
         add esi, 14
