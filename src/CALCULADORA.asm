@@ -20,8 +20,8 @@ precision       resb 1
 op_option       resb 1
 
 section .text
-global _start
-_start:
+; global _start
+; _start:
 
     call print_welcome
     call get_name
@@ -32,16 +32,6 @@ _start:
     call get_bits
     call print_menu
     call get_option
-
-    ; implementa subtração
-    call SUBTRACAO
-
-    push eax
-    mov eax, 4
-    mov ebx, 1
-    pop ecx
-    mov edx, 32
-    int 80h
 
 
 exit:               ; Encerra programa
