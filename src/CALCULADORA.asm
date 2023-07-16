@@ -37,7 +37,7 @@ _start:
     call print_welcome2
     call print_bitquestion
     call get_precison
-    call handle_menu        ;TODO: Mostrar menu de opções até o usuário digitar a opção de sair
+    call handle_menu
 
 exit:               ; Encerra programa
     mov eax, 1
@@ -171,9 +171,9 @@ handle_menu:
     cmp BYTE [op_option], '4'
     je case_divisao
     ; cmp BYTE [op_option], '5'
-    ; je case_3
+    ; je case_exponenciacao
     ; cmp BYTE [op_option], '6'
-    ; je case_3
+    ; je case_mod
     cmp BYTE [op_option], '7'
     je exit
     ;TODO: Esperar o usuário digitar ENTER após mostrar resultados
@@ -189,7 +189,7 @@ case_soma:
     push DWORD 32
 
     call print_msg
-    jmp end_switch
+    jmp handle_menu
 
 
 case_subtracao:
@@ -199,7 +199,7 @@ case_subtracao:
     push DWORD 32
 
     call print_msg
-    jmp end_switch
+    jmp handle_menu
 
 
 case_multiplicacao:
@@ -209,7 +209,7 @@ case_multiplicacao:
     push DWORD 32
 
     call print_msg
-    jmp end_switch
+    jmp handle_menu
 
 
 case_divisao:
@@ -219,4 +219,4 @@ case_divisao:
     push DWORD 32
 
     call print_msg
-    jmp end_switch
+    jmp handle_menu
