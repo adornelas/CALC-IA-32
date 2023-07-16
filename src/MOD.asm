@@ -19,6 +19,7 @@ section .text
 
         mov eax, arg1
         mov ebx, arg2
+        xor edx, edx
         cdq 
         idiv ebx 
 
