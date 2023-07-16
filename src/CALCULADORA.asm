@@ -1,5 +1,7 @@
 extern read_int
 extern int_to_string
+extern find_length
+
 extern SUBTRACAO
 extern DIVISAO
 extern MULTIPLICACAO
@@ -86,6 +88,7 @@ get_name:
     ; Limpa a quebra de linha
     dec eax
     mov BYTE [user_name+eax], 0
+    mov [user_name_len], eax
 
     leave
     ret
@@ -188,7 +191,8 @@ case_soma:
     call SOMA
 
     push DWORD eax
-    push DWORD 32
+    call find_length 
+    push DWORD eax
 
     call print_msg
 
@@ -198,7 +202,8 @@ case_subtracao:
     call SUBTRACAO
 
     push DWORD eax
-    push DWORD 32
+    call find_length 
+    push DWORD eax
 
     call print_msg
 
@@ -208,7 +213,8 @@ case_multiplicacao:
     call MULTIPLICACAO
 
     push DWORD eax
-    push DWORD 32
+    call find_length 
+    push DWORD eax
 
     call print_msg
 
@@ -218,7 +224,8 @@ case_divisao:
     call DIVISAO
     
     push DWORD eax
-    push DWORD 32
+    call find_length 
+    push DWORD eax
 
     call print_msg
 
