@@ -7,6 +7,8 @@ extern DIVISAO
 extern MULTIPLICACAO
 extern SOMA
 
+global precision
+
 section .data
 bem_vindo       db 'Bem-vindo. Digite seu nome: '
 bem_vindo_len   EQU $-bem_vindo
