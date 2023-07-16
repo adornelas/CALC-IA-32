@@ -12,8 +12,8 @@ hola            db  'Hola, '
 hola_len        EQU $-hola
 bem_vindo2        db  ', bem-vindo ao programa de CALC IA-32',00Dh, 0Ah,
 bem_vindo2_len    EQU $-bem_vindo2
-bit_question        db  'Vai trabalhar com 16 ou 32 bits (digite 0 para 16, e 1 para 32):'
-bit_question_len    EQU $-bit_question
+precision_question        db  'Vai trabalhar com 16 ou 32 bits (digite 0 para 16, e 1 para 32):'
+precision_question_len    EQU $-precision_question
 menu        db  'ESCOLHA UMA OPÇÃO:',00Dh, 0Ah,'- 1: SOMA',00Dh, 0Ah,'- 2: SUBTRACAO',00Dh, 0Ah,'- 3: MULTIPLICACAO',00Dh, 0Ah,'- 4: DIVISAO',00Dh, 0Ah,'- 5: EXPONENCIACAO',00Dh, 0Ah,'- 6: MOD',00Dh, 0Ah,'- 7: SAIR',00Dh, 0Ah,
 menu_len    EQU $-menu
 
@@ -35,7 +35,7 @@ _start:
     call print_hola
     call print_name         ;TODO: retirar quebra de linha após printar nome
     call print_welcome2
-    call print_bitquestion
+    call print_precisionquestion
     call get_precison
     call handle_menu
 
@@ -57,6 +57,18 @@ print_msg:
     leave
     ret
 
+read_string:
+    enter 0,0
+    
+    mov eax, 3
+    mov ebx, 0
+    mov ecx, [EBP+12]
+    mov edx, [EBP+8]
+    int 80h
+
+    leave
+    ret
+
 print_welcome:
     enter 0,0
     push DWORD bem_vindo
@@ -69,14 +81,12 @@ print_welcome:
 
 get_name:
     enter 0,0
+    push DWORD user_name
+    push DWORD user_name_len
     
-    mov eax, 3
-    mov ebx, 0
-    mov ecx, user_name
-    mov edx, 16
-    int 80h
-    dec eax
-    mov [user_name_len], eax
+    call read_string
+    ; dec eax
+    ; mov [user_name_len], eax
 
     leave
     ret
@@ -111,10 +121,10 @@ print_welcome2:
     leave
     ret
 
-print_bitquestion:
+print_precisionquestion:
     enter 0,0
-    push DWORD bit_question
-    push DWORD bit_question_len
+    push DWORD precision_question
+    push DWORD precision_question_len
 
     call print_msg
 
@@ -123,12 +133,10 @@ print_bitquestion:
 
 get_precison:
     enter 0,0
+    push DWORD precision
+    push DWORD 2
     
-    mov eax, 3
-    mov ebx, 0
-    mov ecx, precision
-    mov edx, 2
-    int 80h
+    call read_string
 
     leave
     ret
@@ -145,12 +153,10 @@ print_menu:
 
 get_option:
     enter 0,0
+    push DWORD op_option
+    push DWORD 2
     
-    mov eax, 3
-    mov ebx, 0
-    mov ecx, op_option
-    mov edx, 2
-    int 80h
+    call read_string
 
     leave
     ret
@@ -159,7 +165,6 @@ handle_menu:
     enter 0,0
 
     call print_menu
-    
     call get_option
 
     cmp BYTE [op_option], '1'
@@ -176,9 +181,7 @@ handle_menu:
     ; je case_mod
     cmp BYTE [op_option], '7'
     je exit
-    ;TODO: Esperar o usuário digitar ENTER após mostrar resultados
 
-end_switch:
     leave
     ret
 
@@ -189,8 +192,8 @@ case_soma:
     push DWORD 32
 
     call print_msg
-    jmp handle_menu
 
+    jmp wait_for_enter
 
 case_subtracao:
     call SUBTRACAO
@@ -199,8 +202,8 @@ case_subtracao:
     push DWORD 32
 
     call print_msg
-    jmp handle_menu
 
+    jmp wait_for_enter
 
 case_multiplicacao:
     call MULTIPLICACAO
@@ -209,8 +212,8 @@ case_multiplicacao:
     push DWORD 32
 
     call print_msg
-    jmp handle_menu
 
+    jmp wait_for_enter
 
 case_divisao:
     call DIVISAO
@@ -219,4 +222,12 @@ case_divisao:
     push DWORD 32
 
     call print_msg
+
+    jmp wait_for_enter
+
+wait_for_enter:
+    push DWORD eax
+    push DWORD 1
+    call read_string
+
     jmp handle_menu
