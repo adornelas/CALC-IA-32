@@ -2,6 +2,8 @@ extern read_int
 extern int_to_string
 extern SUBTRACAO
 extern DIVISAO
+extern MULTIPLICACAO
+extern SOMA
 
 section .data
 
@@ -33,8 +35,9 @@ _start:
     pop ecx
     mov edx, 32
     int 80h
-
     call DIVISAO
+    call MULTIPLICACAO
+    call SOMA
 
     push eax
     mov eax, 4
