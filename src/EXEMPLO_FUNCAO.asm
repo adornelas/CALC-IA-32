@@ -1,6 +1,7 @@
 extern read_int
 extern int_to_string
 extern SUBTRACAO
+extern DIVISAO
 
 section .data
 
@@ -25,6 +26,15 @@ _start:
     int 80h
 
     call SUBTRACAO
+
+    push eax
+    mov eax, 4
+    mov ebx, 1
+    pop ecx
+    mov edx, 32
+    int 80h
+
+    call DIVISAO
 
     push eax
     mov eax, 4
