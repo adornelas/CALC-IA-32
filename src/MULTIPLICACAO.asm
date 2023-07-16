@@ -29,6 +29,7 @@ section .text
         jo overflow_handler
 
         call int_to_string
+        jmp final_mul
 
         overflow_handler: 
             mov eax, 4
@@ -41,6 +42,7 @@ section .text
             mov ebx, 0
             int 80h
 
-        pop ebx
+        final_mul:
+            pop ebx
         leave
         ret
