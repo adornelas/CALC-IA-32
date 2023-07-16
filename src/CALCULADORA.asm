@@ -33,7 +33,7 @@ _start:
     call print_welcome
     call get_name
     call print_hola
-    call print_name         ;TODO: retirar quebra de linha após printar nome
+    call print_name
     call print_welcome2
     call print_precisionquestion
     call get_precison
@@ -82,11 +82,13 @@ print_welcome:
 get_name:
     enter 0,0
     push DWORD user_name
-    push DWORD user_name_len
+    push DWORD 16
     
     call read_string
-    ; dec eax
-    ; mov [user_name_len], eax
+
+    ; Limpa a quebra de linha
+    dec eax
+    mov BYTE [user_name+eax], 0
 
     leave
     ret
