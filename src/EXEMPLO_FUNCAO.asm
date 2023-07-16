@@ -2,6 +2,7 @@ extern read_int
 extern int_to_string
 extern SUBTRACAO
 extern MULTIPLICACAO
+extern SOMA
 
 section .data
 
@@ -35,6 +36,7 @@ _start:
     int 80h
 
     call MULTIPLICACAO
+    call SOMA
 
     push eax
     mov eax, 4
