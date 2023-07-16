@@ -6,6 +6,7 @@ extern SUBTRACAO
 extern DIVISAO
 extern MULTIPLICACAO
 extern SOMA
+extern MOD
 
 section .data
 bem_vindo       db 'Bem-vindo. Digite seu nome: '
@@ -179,8 +180,8 @@ handle_menu:
     je case_divisao
     ; cmp BYTE [op_option], '5'
     ; je case_exponenciacao
-    ; cmp BYTE [op_option], '6'
-    ; je case_mod
+    cmp BYTE [op_option], '6'
+    je case_mod
     cmp BYTE [op_option], '7'
     je exit
 
@@ -222,6 +223,17 @@ case_multiplicacao:
 
 case_divisao:
     call DIVISAO
+    
+    push DWORD eax
+    call find_length 
+    push DWORD eax
+
+    call print_msg
+
+    jmp wait_for_enter
+
+case_mod:
+    call MOD
     
     push DWORD eax
     call find_length 
