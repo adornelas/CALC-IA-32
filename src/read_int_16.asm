@@ -96,8 +96,9 @@ section .text
         final:            
             
             cmp byte [esp], 1
-            jne numero_positivo 
-                neg ax 
+            jne numero_positivo
+                not ax
+                add ax, 1
 
             numero_positivo: 
 
