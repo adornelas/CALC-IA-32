@@ -1,3 +1,10 @@
+extern read_int
+extern int_to_string
+extern SUBTRACAO
+extern DIVISAO
+extern MULTIPLICACAO
+extern SOMA
+
 section .data
 bem_vindo       db 'Bem-vindo. Digite seu nome: '
 bem_vindo_len   EQU $-bem_vindo
@@ -20,8 +27,8 @@ precision       resb 1
 op_option       resb 1
 
 section .text
-; global _start
-; _start:
+global _start
+_start:
 
     call print_welcome
     call get_name
@@ -29,10 +36,9 @@ section .text
     call print_name         ;TODO: retirar quebra de linha após printar nome
     call print_welcome2
     call print_bitquestion
-    call get_bits
+    call get_precison
     call print_menu
-    call get_option
-
+    call handle_menu
 
 exit:               ; Encerra programa
     mov eax, 1
@@ -116,7 +122,7 @@ print_bitquestion:
     leave
     ret
 
-get_bits:
+get_precison:
     enter 0,0
     
     mov eax, 3
@@ -144,13 +150,71 @@ get_option:
     mov eax, 3
     mov ebx, 0
     mov ecx, op_option
-    mov edx, 1
+    mov edx, 2
     int 80h
-
-    ; Se for opção 7, sair do programa
-    cmp BYTE [op_option], '7'
-    je exit
 
     leave
     ret
 
+handle_menu:
+    enter 0,0
+    
+    call get_option
+
+    cmp BYTE [op_option], '1'
+    je case_soma
+    cmp BYTE [op_option], '2'
+    je case_subtracao
+    cmp BYTE [op_option], '3'
+    je case_multiplicacao
+    cmp BYTE [op_option], '4'
+    je case_divisao
+    ; cmp BYTE [op_option], '5'
+    ; je case_3
+    ; cmp BYTE [op_option], '6'
+    ; je case_3
+    cmp BYTE [op_option], '7'
+    je exit
+
+end_switch:
+    leave
+    ret
+
+case_soma:
+    call SOMA
+
+    push DWORD eax
+    push DWORD 32
+
+    call print_msg
+    jmp end_switch
+
+
+case_subtracao:
+    call SUBTRACAO
+
+    push DWORD eax
+    push DWORD 32
+
+    call print_msg
+    jmp end_switch
+
+
+case_multiplicacao:
+    call MULTIPLICACAO
+
+    push DWORD eax
+    push DWORD 32
+
+    call print_msg
+    jmp end_switch
+
+
+case_divisao:
+    call DIVISAO
+    
+    push DWORD eax
+    push DWORD 32
+
+    call print_msg
+    jmp end_switch
