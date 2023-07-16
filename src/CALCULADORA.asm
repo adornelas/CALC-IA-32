@@ -37,8 +37,7 @@ _start:
     call print_welcome2
     call print_bitquestion
     call get_precison
-    call print_menu
-    call handle_menu
+    call handle_menu        ;TODO: Mostrar menu de opções até o usuário digitar a opção de sair
 
 exit:               ; Encerra programa
     mov eax, 1
@@ -158,6 +157,8 @@ get_option:
 
 handle_menu:
     enter 0,0
+
+    call print_menu
     
     call get_option
 
@@ -175,6 +176,7 @@ handle_menu:
     ; je case_3
     cmp BYTE [op_option], '7'
     je exit
+    ;TODO: Esperar o usuário digitar ENTER após mostrar resultados
 
 end_switch:
     leave
