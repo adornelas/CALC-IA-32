@@ -12,7 +12,7 @@ section .data
 section .bss
     precisao resb 4
     string resd 1
-    input_buffer resb 4
+    input_buffer resb 15 
     number_precisao resb 4
     result resb 4
 
@@ -29,7 +29,7 @@ section .text
         mov eax, 3
         mov ebx, 0
         mov ecx, input_buffer
-        mov edx, 4
+        mov edx, 15
         int 80h
 
         mov esi, input_buffer
