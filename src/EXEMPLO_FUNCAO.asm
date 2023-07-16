@@ -1,6 +1,7 @@
 extern read_int
 extern int_to_string
 extern SUBTRACAO
+extern SOMA
 
 section .data
 
@@ -32,6 +33,16 @@ _start:
     pop ecx
     mov edx, 32
     int 80h
+
+    call SOMA
+
+    push eax
+    mov eax, 4
+    mov ebx, 1
+    pop ecx
+    mov edx, 32
+    int 80h
+
 
     ; Encerra programa
     mov eax, 1
