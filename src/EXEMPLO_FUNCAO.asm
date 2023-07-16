@@ -14,8 +14,8 @@ section .bss
     precisao resb 4
 
 section .text
-global _start
-_start:
+; global _start
+; _start:
 
     ; Imprime bem vindo
     mov eax, 4
