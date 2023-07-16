@@ -9,6 +9,8 @@ extern SOMA
 extern EXPONENCIACAO
 extern MOD
 
+global precision
+
 section .data
 bem_vindo       db 'Bem-vindo. Digite seu nome: '
 bem_vindo_len   EQU $-bem_vindo
@@ -36,7 +38,7 @@ _start:
     call print_hola
     call print_name
     call print_welcome2
-    call print_precisionquestion
+    call print_precision_question
     call get_precison
     call handle_menu
 
@@ -125,7 +127,7 @@ print_welcome2:
     leave
     ret
 
-print_precisionquestion:
+print_precision_question:
     enter 0,0
     push DWORD precision_question
     push DWORD precision_question_len
