@@ -19,6 +19,7 @@ section .text
 
         mov eax, arg1
         mov ebx, arg2
+        cdq 
         idiv ebx 
 
         call int_to_string
