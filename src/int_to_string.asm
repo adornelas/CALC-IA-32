@@ -1,5 +1,7 @@
 global int_to_string
 
+extern precision
+
 section .data
     msg db '' ; Coloquei pra nao dar erro com o gdb
 
@@ -18,10 +20,23 @@ section .text
         mov byte [esi], 0ah
         mov ebx, 10
 
-        cmp eax, 0
-        jge next_digit
-        mov byte [esp], 1
-        neg eax
+        cmp byte [precision], 0x30 ; '0' - 16 bits
+        jne prec32_int_to_string
+        prec16_int_to_string:
+            cmp ax, 0
+            jge next_digit
+            neg_int_16:
+                mov byte [esp], 1
+                not ax
+                add ax, 1
+                jmp next_digit
+
+        prec32_int_to_string:
+            cmp eax, 0
+            jge next_digit
+            neg_int_32:
+                mov byte [esp], 1
+                neg eax
 
     next_digit: 
         xor edx,edx
