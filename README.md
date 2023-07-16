@@ -26,11 +26,11 @@ Esse comando irá executar **todos** os comandos necessários para o projeto, de
 
 Também podem ser usados os seguintes comandos:
 
-#### Para compilar os arquivos:****
+#### Para compilar os arquivos:
 
 `nasm -f elf -o CALCULADORA.o CALCULADORA.asm && nasm -f elf -o read_int.o read_int.asm && nasm -f elf -o int_to_string.o int_to_string.asm && nasm -f elf -o read_int_16.o read_int_16.asm && nasm -f elf -o DIVISAO.o DIVISAO.asm && nasm -f elf -o EXPONENCIACAO.o EXPONENCIACAO.asm && nasm -f elf -o MOD.o MOD.asm && nasm -f elf -o MULTIPLICACAO.o MULTIPLICACAO.asm && nasm -f elf -o SOMA.o SOMA.asm && nasm -f elf -o SUBTRACAO.o SUBTRACAO.asm`
 
-#### Para ligar o programa:********
+#### Para ligar o programa:
 
 `ld -m elf_i386 obj/./src/EXPONENCIACAO.o obj/./src/SOMA.o obj/./src/read_int.o obj/./src/MULTIPLICACAO.o obj/./src/read_int_16.o obj/./src/MOD.o obj/./src/CALCULADORA.o obj/./src/DIVISAO.o obj/./src/SUBTRACAO.o obj/./src/int_to_string.o obj/./find_length.o  -o CALCULADORA`
 
