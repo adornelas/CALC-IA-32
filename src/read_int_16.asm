@@ -1,3 +1,6 @@
+extern print_output
+extern read_input
+
 global read_int_16
 
 section .data
@@ -17,19 +20,10 @@ section .bss
 
 section .text
     read_int_16:
-        ; TODO: remover print da mensagem para digitar precisao 
-        mov eax, 4
-        mov ebx, 1
-        mov ecx, msg
-        mov edx, SIZE_MSG
-        int 80h
-        ; TODO: remover linhas acima ate comentario quando integrar todo o menu
 
-        mov eax, 3
-        mov ebx, 0
-        mov ecx, input_buffer
-        mov edx, 15
-        int 80h
+        call ask_number
+
+        call read_number
 
         mov esi, input_buffer
         mov edi, result
@@ -78,11 +72,7 @@ section .text
             jmp final
         
         invalid_digit:
-            mov eax, 4
-            mov ebx, 1
-            mov ecx, erro
-            mov edx, size_erro
-            int 80h
+            call print_error
         
         handle_negative:
             mov byte [esp], 1
@@ -106,4 +96,35 @@ section .text
 
             ; eax contem conteudo de retorno
 
+        ret
+
+    ask_number:
+        enter 0,0
+
+        push DWORD msg
+        push DWORD SIZE_MSG
+        call print_output
+
+        leave
+        ret
+
+    read_number:
+        enter 0,0
+
+        push DWORD input_buffer
+        push DWORD 15
+
+        call read_input
+
+        leave
+        ret
+
+    print_error:
+        enter 0,0
+
+        push DWORD erro
+        push DWORD size_erro
+        call print_output
+
+        leave
         ret
