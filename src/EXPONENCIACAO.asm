@@ -3,6 +3,7 @@ global EXPONENCIACAO
 extern read_int
 extern read_int_16
 extern int_to_string
+extern print_output
 
 extern precision
 
@@ -77,11 +78,7 @@ section .text
             jmp final_exponenciacao
 
         overflow_handler: 
-            mov eax, 4
-            mov ebx, 1
-            mov ecx, msg_overflow
-            mov edx, size_msg_overflow
-            int 80h
+            call print_overflow
 
             mov eax, 1
             mov ebx, 0
@@ -89,5 +86,15 @@ section .text
 
         final_exponenciacao:
             pop ebx
+        leave
+        ret
+
+    print_overflow:
+        enter 0,0
+
+        push DWORD msg_overflow
+        push DWORD size_msg_overflow
+        call print_output
+
         leave
         ret
