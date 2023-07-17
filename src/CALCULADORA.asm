@@ -10,7 +10,7 @@ extern EXPONENCIACAO
 extern MOD
 
 global precision
-global print_output
+global write_output
 global read_input
 
 section .data
@@ -49,7 +49,7 @@ exit:               ; Encerra programa
     mov ebx, 0
     int 80h
 
-print_output:
+write_output:
     ; Imprime uma string que foi passada pela pilha por parâmetro, com seu tamanho empilhado em seguida
     enter 0,0
     
@@ -79,7 +79,7 @@ print_welcome:
     push DWORD bem_vindo
     push DWORD bem_vindo_len
 
-    call print_output
+    call write_output
 
     leave
     ret
@@ -104,7 +104,7 @@ print_hola:
     push DWORD hola
     push DWORD hola_len
 
-    call print_output
+    call write_output
 
     leave
     ret
@@ -114,7 +114,7 @@ print_name:
     push DWORD user_name
     push DWORD user_name_len
 
-    call print_output
+    call write_output
 
     leave
     ret
@@ -124,7 +124,7 @@ print_welcome2:
     push DWORD bem_vindo2
     push DWORD bem_vindo2_len
 
-    call print_output
+    call write_output
 
     leave
     ret
@@ -134,7 +134,7 @@ print_precision_question:
     push DWORD precision_question
     push DWORD precision_question_len
 
-    call print_output
+    call write_output
 
     leave
     ret
@@ -154,7 +154,7 @@ print_menu:
     push DWORD menu
     push DWORD menu_len
 
-    call print_output
+    call write_output
 
     leave
     ret
@@ -200,7 +200,7 @@ case_soma:
     call find_length 
     push DWORD eax
 
-    call print_output
+    call write_output
 
     jmp wait_for_enter
 
@@ -211,7 +211,7 @@ case_subtracao:
     call find_length 
     push DWORD eax
 
-    call print_output
+    call write_output
 
     jmp wait_for_enter
 
@@ -222,7 +222,7 @@ case_multiplicacao:
     call find_length 
     push DWORD eax
 
-    call print_output
+    call write_output
 
     jmp wait_for_enter
 
@@ -233,7 +233,7 @@ case_divisao:
     call find_length 
     push DWORD eax
 
-    call print_output
+    call write_output
 
     jmp wait_for_enter
 
@@ -243,7 +243,7 @@ case_exponenciacao:
     call find_length 
     push DWORD eax
 
-    call print_output
+    call write_output
 
     jmp wait_for_enter
 
@@ -253,7 +253,7 @@ case_mod:
     call find_length 
     push DWORD eax
 
-    call print_output
+    call write_output
 
     jmp wait_for_enter
 

@@ -3,7 +3,7 @@ global EXPONENCIACAO
 extern read_int
 extern read_int_16
 extern int_to_string
-extern print_output
+extern write_output
 
 extern precision
 
@@ -94,7 +94,7 @@ section .text
 
         push DWORD msg_overflow
         push DWORD size_msg_overflow
-        call print_output
+        call write_output
 
         leave
         ret

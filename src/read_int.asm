@@ -1,4 +1,4 @@
-extern print_output
+extern write_output
 extern read_input
 
 global read_int
@@ -103,7 +103,7 @@ section .text
 
         push DWORD msg
         push DWORD SIZE_MSG
-        call print_output
+        call write_output
 
         leave
         ret
@@ -124,7 +124,7 @@ section .text
 
         push DWORD erro
         push DWORD size_erro
-        call print_output
+        call write_output
 
         leave
         ret
