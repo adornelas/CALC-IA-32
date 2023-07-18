@@ -73,6 +73,10 @@ section .text
         
         invalid_digit:
             call print_error
+
+            mov eax, 1
+            mov ebx, 1
+            int 80h
         
         handle_negative:
             mov byte [esp], 1
