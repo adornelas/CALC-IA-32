@@ -59,7 +59,7 @@ section .text
             call print_overflow
 
             mov eax, 1
-            mov ebx, 0
+            mov ebx, 1
             int 80h
 
         final_mul:
