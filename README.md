@@ -7,7 +7,7 @@ Equipe:
 
 O projeto CALC-IA-32 é um trabalho feito para a disciplina de Software Básico (CIC0104) na Universidade de Brasília. 
 
-Seu objetivo principal é implementar uma calculadora de número com duas precisões diferentes: 16 e 32 bits, seguindo uma série de requisitos detalhados no roteiro do Trabalho 2 disponibilizado pelo Professor Bruno L. M. Espinoza. 
+Seu objetivo principal é implementar uma calculadora de número com duas precisões diferentes: 16 e 32 bits, seguindo uma série de requisitos detalhados no roteiro do [Trabalho 2](./docs/trabalho2.pdf) disponibilizado pelo Professor Bruno L. M. Espinoza. 
 
 O projeto foi feito e testado no Unix, mais especificadamente, no Ubuntu.
 
@@ -37,3 +37,9 @@ Também podem ser usados os seguintes comandos:
 ## Como executar 
 
 `./CALCULADORA`
+
+# Observações:
+
+A entrada de nome do usuário permite apenas 15 caracteres, e a entrada de números para operações permite apenas 13 dígitos, podendo ser negativo ou positivo.
+Caso a operação dê overflow, o programa é encerrado com a flag 1 (erro).
+Caso o usuário digite um número inválido o programa também é encerrado com a flag 1.
