@@ -12,7 +12,7 @@ Seu objetivo principal é implementar uma calculadora de número com duas precis
 O projeto foi feito e testado no Unix, mais especificadamente, no Ubuntu.
 
 
-# Pra compilar e ligar
+## Pra compilar e ligar
 
 Para compilar e ligar, basta digitar no terminal 
 
@@ -34,12 +34,15 @@ Também podem ser usados os seguintes comandos:
 
 `ld -m elf_i386 obj/./src/EXPONENCIACAO.o obj/./src/SOMA.o obj/./src/read_int.o obj/./src/MULTIPLICACAO.o obj/./src/read_int_16.o obj/./src/MOD.o obj/./src/CALCULADORA.o obj/./src/DIVISAO.o obj/./src/SUBTRACAO.o obj/./src/int_to_string.o obj/./find_length.o  -o CALCULADORA`
 
-## Como executar 
+## Para executar 
 
 `./CALCULADORA`
 
-# Observações:
+## Observações:
 
-A entrada de nome do usuário permite apenas 15 caracteres, e a entrada de números para operações permite apenas 13 dígitos, podendo ser negativo ou positivo.
-Caso a operação dê overflow, o programa é encerrado com a flag 1 (erro).
-Caso o usuário digite um número inválido o programa também é encerrado com a flag 1.
+- A entrada de nome do usuário permite apenas 15 caracteres, e a entrada de números para operações permite apenas 13 dígitos, podendo ser negativo ou positivo.
+
+- Caso a operação dê overflow, o programa é encerrado com código de saída 1 (erro).
+
+- Caso o usuário digite um número inválido o programa também é encerrado com código de saída 1.
+
