@@ -10,6 +10,8 @@ extern EXPONENCIACAO
 extern MOD
 
 global precision
+global write_output
+global read_input
 
 section .data
 bem_vindo       db 'Bem-vindo. Digite seu nome: '
@@ -47,7 +49,7 @@ exit:               ; Encerra programa
     mov ebx, 0
     int 80h
 
-print_msg:
+write_output:
     ; Imprime uma string que foi passada pela pilha por parâmetro, com seu tamanho empilhado em seguida
     enter 0,0
     
@@ -60,7 +62,7 @@ print_msg:
     leave
     ret
 
-read_string:
+read_input:
     enter 0,0
     
     mov eax, 3
@@ -77,7 +79,7 @@ print_welcome:
     push DWORD bem_vindo
     push DWORD bem_vindo_len
 
-    call print_msg
+    call write_output
 
     leave
     ret
@@ -87,7 +89,7 @@ get_name:
     push DWORD user_name
     push DWORD 16
     
-    call read_string
+    call read_input
 
     ; Limpa a quebra de linha
     dec eax
@@ -102,7 +104,7 @@ print_hola:
     push DWORD hola
     push DWORD hola_len
 
-    call print_msg
+    call write_output
 
     leave
     ret
@@ -112,7 +114,7 @@ print_name:
     push DWORD user_name
     push DWORD user_name_len
 
-    call print_msg
+    call write_output
 
     leave
     ret
@@ -122,7 +124,7 @@ print_welcome2:
     push DWORD bem_vindo2
     push DWORD bem_vindo2_len
 
-    call print_msg
+    call write_output
 
     leave
     ret
@@ -132,7 +134,7 @@ print_precision_question:
     push DWORD precision_question
     push DWORD precision_question_len
 
-    call print_msg
+    call write_output
 
     leave
     ret
@@ -142,7 +144,7 @@ get_precison:
     push DWORD precision
     push DWORD 2
     
-    call read_string
+    call read_input
 
     leave
     ret
@@ -152,7 +154,7 @@ print_menu:
     push DWORD menu
     push DWORD menu_len
 
-    call print_msg
+    call write_output
 
     leave
     ret
@@ -162,7 +164,7 @@ get_option:
     push DWORD op_option
     push DWORD 2
     
-    call read_string
+    call read_input
 
     leave
     ret
@@ -198,7 +200,7 @@ case_soma:
     call find_length 
     push DWORD eax
 
-    call print_msg
+    call write_output
 
     jmp wait_for_enter
 
@@ -209,7 +211,7 @@ case_subtracao:
     call find_length 
     push DWORD eax
 
-    call print_msg
+    call write_output
 
     jmp wait_for_enter
 
@@ -220,7 +222,7 @@ case_multiplicacao:
     call find_length 
     push DWORD eax
 
-    call print_msg
+    call write_output
 
     jmp wait_for_enter
 
@@ -231,7 +233,7 @@ case_divisao:
     call find_length 
     push DWORD eax
 
-    call print_msg
+    call write_output
 
     jmp wait_for_enter
 
@@ -241,7 +243,7 @@ case_exponenciacao:
     call find_length 
     push DWORD eax
 
-    call print_msg
+    call write_output
 
     jmp wait_for_enter
 
@@ -251,13 +253,13 @@ case_mod:
     call find_length 
     push DWORD eax
 
-    call print_msg
+    call write_output
 
     jmp wait_for_enter
 
 wait_for_enter:
     push DWORD eax
     push DWORD 1
-    call read_string
+    call read_input
 
     jmp handle_menu
